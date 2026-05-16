@@ -1,3 +1,10 @@
+.bookshelf-session
+.cache/
+.DS_Store
+node_modules/
+.env
+.env.local
+
 # Ralph — ignore everything except key files
 .ralph/*
 !.ralph/fix_plan.md
