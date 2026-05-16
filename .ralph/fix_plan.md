@@ -52,7 +52,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 
 ### Phase 1 — Bootstrap files (one commit per the plan: `chore: bootstrap bookshelf corpus`)
 - [ ] **1.1** Write `LICENSE` (dual MIT + CC BY 4.0) — plan Phase 1 Task 1.1.
-- [ ] **1.2** Write `README.md` — plan Phase 1 Task 1.2.
+- [x] **1.2** Write `README.md` — plan Phase 1 Task 1.2.
 - [ ] **1.3** Write `AGENTS.md` — plan Phase 1 Task 1.3.
 - [ ] **1.4** Write `CLAUDE.md` — plan Phase 1 Task 1.4.
 - [ ] **1.5** Write `.gitignore` — plan Phase 1 Task 1.5.
