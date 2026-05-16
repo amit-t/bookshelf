@@ -48,7 +48,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 ## High Priority — Foundation (sequential; must land in order)
 
 ### Phase 0 — Repo init verification
-- [ ] **0.1** Verify clean git state and main branch — see plan Phase 0 Task 0.1.
+- [x] **0.1** Verify clean git state and main branch — see plan Phase 0 Task 0.1.
 
 ### Phase 1 — Bootstrap files (one commit per the plan: `chore: bootstrap bookshelf corpus`)
 - [x] **1.1** Write `LICENSE` (dual MIT + CC BY 4.0) — plan Phase 1 Task 1.1.
@@ -187,6 +187,11 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 0.1 verification under parallel worktree orchestration: `git status
+  --porcelain` on the main worktree may show `.ralph/fix_plan.md` modified
+  due to orchestrator `[~]` in-progress markers on sibling tasks. Treat that
+  as transient orchestration metadata, not project drift. Verify branch is
+  `main` and that no non-`.ralph/fix_plan.md` paths are dirty.
 - The detailed plan is the source of truth for **every** task. Do not
   paraphrase code from memory — copy from the plan verbatim.
 - TDD is mandatory for `lib/` and `cmd_*` work: failing test → impl → pass.
