@@ -1,0 +1,4 @@
+# Open hint file. The bookshelf-capture skill appends new shelves when the
+# user confirms them. Not a closed taxonomy — kept here to avoid typo splits
+# (e.g. `nightstand` vs `night-stand`).
+shelves: []
