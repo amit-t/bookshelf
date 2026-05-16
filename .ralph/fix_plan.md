@@ -51,10 +51,10 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **0.1** Verify clean git state and main branch — see plan Phase 0 Task 0.1.
 
 ### Phase 1 — Bootstrap files (one commit per the plan: `chore: bootstrap bookshelf corpus`)
-- [ ] **1.1** Write `LICENSE` (dual MIT + CC BY 4.0) — plan Phase 1 Task 1.1.
+- [x] **1.1** Write `LICENSE` (dual MIT + CC BY 4.0) — plan Phase 1 Task 1.1.
 - [x] **1.2** Write `README.md` — plan Phase 1 Task 1.2.
-- [ ] **1.3** Write `AGENTS.md` — plan Phase 1 Task 1.3.
-- [ ] **1.4** Write `CLAUDE.md` — plan Phase 1 Task 1.4.
+- [x] **1.3** Write `AGENTS.md` — plan Phase 1 Task 1.3.
+- [x] **1.4** Write `CLAUDE.md` — plan Phase 1 Task 1.4.
 - [ ] **1.5** Write `.gitignore` — plan Phase 1 Task 1.5.
 - [ ] **1.6** Commit Phase 1 bundle (include the plan file itself in this commit) — plan Phase 1 Task 1.6.
 
