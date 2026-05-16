@@ -192,6 +192,15 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
   due to orchestrator `[~]` in-progress markers on sibling tasks. Treat that
   as transient orchestration metadata, not project drift. Verify branch is
   `main` and that no non-`.ralph/fix_plan.md` paths are dirty.
+- Task 1.6 under parallel-worktree orchestration: the plan prescribes a
+  single bundle commit `chore: bootstrap bookshelf corpus` covering
+  `LICENSE README.md AGENTS.md CLAUDE.md .gitignore` + this plan file. In
+  practice the orchestrator landed each Phase 1 sub-task (1.1–1.5) as its
+  own merge commit, and the plan file itself was already committed in the
+  initial seed commit `d1c0aa2 chore(bootstrap): seed ralph workflow for
+  bookshelf`. The bundle is therefore distributed across history rather
+  than concentrated in one commit; Task 1.6's worker commit serves as the
+  named bundle marker. No file content changes are required at 1.6.
 - The detailed plan is the source of truth for **every** task. Do not
   paraphrase code from memory — copy from the plan verbatim.
 - TDD is mandatory for `lib/` and `cmd_*` work: failing test → impl → pass.
