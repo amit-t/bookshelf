@@ -1,0 +1,49 @@
+categories:
+  - key: engineering
+    label: Engineering
+    color: electric-blue
+    description: software, systems, code, infrastructure
+  - key: business
+    label: Business
+    color: hot-pink
+    description: strategy, operations, startups, finance
+  - key: leadership
+    label: Leadership
+    color: warm-coral
+    description: managing, hiring, org design, decisions
+  - key: product
+    label: Product
+    color: purple-accent
+    description: PM craft, design, UX, roadmaps
+  - key: science
+    label: Science
+    color: cyan-accent
+    description: physics, biology, math, popular science
+  - key: philosophy
+    label: Philosophy
+    color: yellow-accent
+    description: stoicism, ethics, mind, metaphysics
+  - key: psychology
+    label: Psychology
+    color: lime-green
+    description: behavior, cognition, habits, emotion
+  - key: history
+    label: History
+    color: vibrant-orange
+    description: biographies, civilizations, wars
+  - key: fiction
+    label: Fiction
+    color: deep-violet
+    description: novels, short stories, all genres
+  - key: craft
+    label: Craft
+    color: mint-green
+    description: writing craft, taste, mastery, deliberate practice
+  - key: life
+    label: Life
+    color: sun-gold
+    description: health, finance, relationships, self
+color_pool:
+  - blush-pink
+  - sky-blue
+  - rust-red
