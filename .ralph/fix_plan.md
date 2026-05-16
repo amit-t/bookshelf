@@ -55,7 +55,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **1.2** Write `README.md` — plan Phase 1 Task 1.2.
 - [x] **1.3** Write `AGENTS.md` — plan Phase 1 Task 1.3.
 - [x] **1.4** Write `CLAUDE.md` — plan Phase 1 Task 1.4.
-- [x] **1.5** Write `.gitignore` — plan Phase 1 Task 1.5.
+- [ ] **1.5** Write `.gitignore` — plan Phase 1 Task 1.5.
 - [ ] **1.6** Commit Phase 1 bundle (include the plan file itself in this commit) — plan Phase 1 Task 1.6.
 
 ### Phase 2 — Corpus scaffolding
