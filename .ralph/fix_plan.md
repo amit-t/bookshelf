@@ -82,7 +82,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **5.4** Commit (`feat(lib): _lookup.zsh — open library + google books with fixture replay`) — plan Phase 5 Task 5.4.
 
 ### Phase 6 — `lib/_import_helpers.zsh` (TDD)
-- [ ] **6.1** `bookshelf_write_record` test + impl + commit (`feat(lib): _import_helpers.zsh — bookshelf_write_record`) — plan Phase 6 Task 6.1.
+- [x] **6.1** `bookshelf_write_record` test + impl + commit (`feat(lib): _import_helpers.zsh — bookshelf_write_record`) — plan Phase 6 Task 6.1.
 
 ### Phase 7 — `bin/bookshelf` dispatcher + capture launcher (TDD)
 - [ ] **7.1** Capture test + `lib/cmd_capture.zsh` + `bin/bookshelf` + chmod + commit (`feat(cli): bookshelf dispatcher + capture command`) — plan Phase 7 Task 7.1.
@@ -187,6 +187,35 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 6.1 under parallel-worktree orchestration: ships ONLY
+  `lib/_import_helpers.zsh` + `tests/cli/test_write_record.zsh` (the plan's
+  Step 5 bundle commit covers both files in a single commit, so unlike Phases
+  4 and 5 there is no split — this is the entire Phase 6 PR). Verification:
+  borrowed `lib/_shared.zsh` from `origin/ralph-devin/4-2-...` (canonical),
+  `tests/_assert.zsh` from `origin/ralph-devin/3-1-...`, and `tests/run.zsh`
+  from `origin/ralph-devin/3-2-...` into the working tree, ran
+  `zsh tests/cli/test_write_record.zsh` (exit 127 pre-impl, exit 0 post-impl)
+  and `zsh tests/run.zsh` (`1 passed, 0 failed, 0 skipped`), then
+  `git rm --cached` + `rm` the borrowed files (unstaging since
+  `git checkout origin/<br> -- <path>` stages by default) before committing
+  so this PR ships only the 6.1 artifacts. Two divergences from the plan
+  body were required, both small bug fixes:
+  1. **zsh `status` is read-only.** The plan declares `local status="read"`
+     inside `bookshelf_write_record`. zsh's `$status` is a special parameter
+     (alias for `$?`), so `local status=...` raises `read-only variable:
+     status` and the function aborts. Renamed the internal local to
+     `book_status`; the CLI flag stays `--status` and the YAML key stays
+     `status:`, so only the binding name moved.
+  2. **Optional-string YAML lines duplicated the value.** The plan's pattern
+     `${v:+\"$v\"}${v:-null}` yields `"foo"foo` for set values, because
+     `${v:-null}` returns `$v` (not the default) when `v` is set. The test
+     happened to pass anyway via `assert_contains` substring semantics, but
+     the rendered YAML is invalid and would break downstream parsers.
+     Added a `_bookshelf_yaml_str_or_null` helper and replaced the seven
+     affected lines (`isbn13`, `cover_url`, `goodreads_url`, `amazon_url`,
+     `format`, `genre`, `recommended_by`). Numeric optionals
+     (`published_year`, `pages`, `started_at`, `finished_at`, `rating`)
+     keep the plain `${v:-null}` form since they never need quoting.
 - Task 5.4 under parallel-worktree orchestration: this is the plan-named
   bundle marker for Phase 5 (`feat(lib): _lookup.zsh — open library + google
   books with fixture replay`). The actual files (`lib/_lookup.zsh`,
