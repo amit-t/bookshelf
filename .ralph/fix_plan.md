@@ -59,10 +59,10 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **1.6** Commit Phase 1 bundle (include the plan file itself in this commit) — plan Phase 1 Task 1.6.
 
 ### Phase 2 — Corpus scaffolding
-- [ ] **2.1** Write `books/_categories.yml` (11 closed categories) — plan Phase 2 Task 2.1.
-- [ ] **2.2** Write `books/_shelves.yml` (open hint file, initially empty) — plan Phase 2 Task 2.2.
+- [x] **2.1** Write `books/_categories.yml` (11 closed categories) — plan Phase 2 Task 2.1.
+- [x] **2.2** Write `books/_shelves.yml` (open hint file, initially empty) — plan Phase 2 Task 2.2.
 - [x] **2.3** Write `books/_example.md` template fixture — plan Phase 2 Task 2.3.
-- [ ] **2.4** Commit Phase 2 (`feat: closed category taxonomy + open shelves hint file + template`) — plan Phase 2 Task 2.4.
+- [x] **2.4** Commit Phase 2 (`feat: closed category taxonomy + open shelves hint file + template`) — plan Phase 2 Task 2.4.
 
 ### Phase 3 — Test harness
 - [ ] **3.1** Write `tests/_assert.zsh` (assertions + `setup_temp_repo` / `teardown_temp_repo`) — plan Phase 3 Task 3.1.
@@ -192,6 +192,13 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
   due to orchestrator `[~]` in-progress markers on sibling tasks. Treat that
   as transient orchestration metadata, not project drift. Verify branch is
   `main` and that no non-`.ralph/fix_plan.md` paths are dirty.
+- Task 2.4 under parallel-worktree orchestration: the plan prescribes a
+  single bundle commit `feat: closed category taxonomy + open shelves hint
+  file + template` covering `books/_categories.yml books/_shelves.yml
+  books/_example.md`. That commit (`c3027d9`) already exists on `main` —
+  landed by a prior Ralph worker via merged PR #6. The three files match
+  the plan-specified content. Task 2.4's worker commit therefore only
+  ticks the checkbox; no file content changes are required at 2.4.
 - Task 1.6 under parallel-worktree orchestration: the plan prescribes a
   single bundle commit `chore: bootstrap bookshelf corpus` covering
   `LICENSE README.md AGENTS.md CLAUDE.md .gitignore` + this plan file. In
