@@ -72,8 +72,8 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
 - [x] **4.2** Slug test — plan Phase 4 Task 4.2.
 - [x] **4.3** Repo-resolve test — plan Phase 4 Task 4.3.
-- [ ] **4.4** Length-guard test — plan Phase 4 Task 4.4.
-- [ ] **4.5** Run all tests so far, commit (`feat(lib): _shared.zsh — ulid, slug, repo path, length guard`) — plan Phase 4 Task 4.5.
+- [x] **4.4** Length-guard test — plan Phase 4 Task 4.4.
+- [x] **4.5** Run all tests so far, commit (`feat(lib): _shared.zsh — ulid, slug, repo path, length guard`) — plan Phase 4 Task 4.5.
 
 ### Phase 5 — `lib/_lookup.zsh` (TDD with HTTP fixtures)
 - [ ] **5.1** Write three fixture files (`tests/fixtures/openlibrary/atomic-habits.json`, `no-match.json`, `tests/fixtures/googlebooks/atomic-habits.json`) — plan Phase 5 Task 5.1.
