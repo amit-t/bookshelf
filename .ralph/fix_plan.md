@@ -78,7 +78,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 ### Phase 5 — `lib/_lookup.zsh` (TDD with HTTP fixtures)
 - [x] **5.1** Write three fixture files (`tests/fixtures/openlibrary/atomic-habits.json`, `no-match.json`, `tests/fixtures/googlebooks/atomic-habits.json`) — plan Phase 5 Task 5.1.
 - [x] **5.2** Open Library lookup test + `lib/_lookup.zsh` impl — plan Phase 5 Task 5.2.
-- [ ] **5.3** Google Books fallback test — plan Phase 5 Task 5.3.
+- [x] **5.3** Google Books fallback test — plan Phase 5 Task 5.3.
 - [ ] **5.4** Commit (`feat(lib): _lookup.zsh — open library + google books with fixture replay`) — plan Phase 5 Task 5.4.
 
 ### Phase 6 — `lib/_import_helpers.zsh` (TDD)
@@ -187,6 +187,35 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 5.3 under parallel-worktree orchestration: the plan bundles every
+  Phase 5 sub-task into one commit at Task 5.4 (`feat(lib): _lookup.zsh —
+  open library + google books with fixture replay`) covering
+  `lib/_lookup.zsh tests/cli/test_lookup_openlibrary.zsh
+  tests/cli/test_lookup_google_fallback.zsh tests/fixtures/`. For per-task
+  PR isolation, this worker ships ONLY
+  `tests/cli/test_lookup_google_fallback.zsh` (verbatim from the plan's
+  Step 1 block, including the `jq`-not-installed SKIP guard). The
+  `lib/_lookup.zsh` impl + `tests/fixtures/` JSON arrive via the merged
+  5.1 + 5.2 PRs; the bundle commit message at 5.4 then serves as the named
+  bundle marker with no further file changes. Verification: borrowed
+  `tests/_assert.zsh` from `origin/ralph-devin/3-1-...`, `tests/run.zsh`
+  from `origin/ralph-devin/3-2-...`, `lib/_shared.zsh` from
+  `origin/ralph-devin/4-2-...` (canonical with the macOS-iconv hardening),
+  `tests/fixtures/` from `origin/ralph-devin/5-1-...`, and `lib/_lookup.zsh`
+  from `origin/ralph-devin/5-2-...` into the working tree, ran
+  `zsh tests/cli/test_lookup_google_fallback.zsh` (exit 0) and
+  `zsh tests/run.zsh` (`1 passed, 0 failed, 0 skipped`), then `git rm
+  --cached` + `rm` on the borrowed files (including unstaging them from the
+  index since `git checkout origin/<br> -- <path>` stages them by default)
+  before committing so this PR ships only the 5.3 artifact. The combined
+  `bookshelf_lookup` short-circuits on the Open Library hit for `"Atomic
+  Habits"` (slug `atomic-habits` → OL fixture has `numFound > 0` →
+  normalized output carries `"source": "openlibrary"` + title `"Atomic
+  Habits"`); on `"Zzz No Match"` (slug `zzz-no-match`) OL falls through to
+  the `no-match.json` fixture (`numFound: 0`) and GB falls through to the
+  in-helper `{"totalItems": 0, "items": []}` default, hitting the final
+  `'{"source": "none"}'` branch so the assertion that the output contains
+  `"source"` still passes.
 - Task 5.2 under parallel-worktree orchestration: the plan bundles every
   Phase 5 sub-task into one commit at Task 5.4 (`feat(lib): _lookup.zsh —
   open library + google books with fixture replay`) covering
