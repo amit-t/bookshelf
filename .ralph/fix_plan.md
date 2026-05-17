@@ -76,7 +76,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **4.5** Run all tests so far, commit (`feat(lib): _shared.zsh — ulid, slug, repo path, length guard`) — plan Phase 4 Task 4.5.
 
 ### Phase 5 — `lib/_lookup.zsh` (TDD with HTTP fixtures)
-- [ ] **5.1** Write three fixture files (`tests/fixtures/openlibrary/atomic-habits.json`, `no-match.json`, `tests/fixtures/googlebooks/atomic-habits.json`) — plan Phase 5 Task 5.1.
+- [x] **5.1** Write three fixture files (`tests/fixtures/openlibrary/atomic-habits.json`, `no-match.json`, `tests/fixtures/googlebooks/atomic-habits.json`) — plan Phase 5 Task 5.1.
 - [ ] **5.2** Open Library lookup test + `lib/_lookup.zsh` impl — plan Phase 5 Task 5.2.
 - [ ] **5.3** Google Books fallback test — plan Phase 5 Task 5.3.
 - [ ] **5.4** Commit (`feat(lib): _lookup.zsh — open library + google books with fixture replay`) — plan Phase 5 Task 5.4.
@@ -187,6 +187,25 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 5.1 under parallel-worktree orchestration: the plan bundles every
+  Phase 5 sub-task into one commit at Task 5.4 (`feat(lib): _lookup.zsh —
+  open library + google books with fixture replay`) covering
+  `lib/_lookup.zsh tests/cli/test_lookup_openlibrary.zsh
+  tests/cli/test_lookup_google_fallback.zsh tests/fixtures/`. For per-task
+  PR isolation, this worker ships ONLY the three fixture files
+  (`tests/fixtures/openlibrary/atomic-habits.json`, `no-match.json`,
+  `tests/fixtures/googlebooks/atomic-habits.json`) under the commit
+  `test(fixtures): openlibrary + googlebooks lookup fixtures (Task 5.1)`,
+  mirroring the split pattern used in Phases 1/2/3/4. Subsequent
+  5.2/5.3 workers add the lookup test files + `lib/_lookup.zsh`; the
+  bundle commit message at 5.4 then serves as the named bundle marker
+  with no further file changes. Verification: all three JSON files
+  validate with `jq` (no parse errors); `numFound`/`docs` shape
+  matches the Open Library `/search.json` response surface and
+  `totalItems`/`items.volumeInfo` matches the Google Books
+  `/volumes` response surface as consumed by `bookshelf_lookup_*` in
+  the plan's Step 3 `lib/_lookup.zsh` body — no harness was needed
+  since 5.1 ships zero zsh code.
 - Task 4.4 under parallel-worktree orchestration: the plan prescribes only
   the test file `tests/cli/test_length_guard.zsh`, sourcing the
   `bookshelf_check_title` helper landed by Task 4.1 (Task 4.2's canonical
