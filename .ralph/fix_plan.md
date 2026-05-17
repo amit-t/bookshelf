@@ -65,7 +65,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **2.4** Commit Phase 2 (`feat: closed category taxonomy + open shelves hint file + template`) — plan Phase 2 Task 2.4.
 
 ### Phase 3 — Test harness
-- [ ] **3.1** Write `tests/_assert.zsh` (assertions + `setup_temp_repo` / `teardown_temp_repo`) — plan Phase 3 Task 3.1.
+- [x] **3.1** Write `tests/_assert.zsh` (assertions + `setup_temp_repo` / `teardown_temp_repo`) — plan Phase 3 Task 3.1.
 - [ ] **3.2** Write `tests/run.zsh`, make executable, smoke-test on empty test dir, commit (`test: harness — runner + assertions + temp-repo helpers`) — plan Phase 3 Task 3.2.
 
 ### Phase 4 — `lib/_shared.zsh` (TDD)
@@ -187,6 +187,14 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 3.1 under parallel-worktree orchestration: the plan bundles
+  `tests/_assert.zsh` into Task 3.2's commit (`test: harness — runner +
+  assertions + temp-repo helpers`). For per-task PR isolation, this worker
+  lands `tests/_assert.zsh` as its own commit `test(harness): _assert.zsh
+  — assertions + temp-repo helpers (Task 3.1)`; Task 3.2's worker will land
+  `tests/run.zsh` separately. The plan-named bundle commit message is
+  therefore distributed across two commits, mirroring the Phase 1/2 split
+  pattern already documented below.
 - Task 0.1 verification under parallel worktree orchestration: `git status
   --porcelain` on the main worktree may show `.ralph/fix_plan.md` modified
   due to orchestrator `[~]` in-progress markers on sibling tasks. Treat that
