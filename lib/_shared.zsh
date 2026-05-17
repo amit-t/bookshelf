@@ -63,9 +63,14 @@ bookshelf_cd_repo() {
 bookshelf_slug() {
   local title="$1" author_last="$2"
   local s
-  # transliterate Unicode to ASCII; fall back to original on iconv failure
+  # transliterate Unicode to ASCII; fall back to original on iconv failure.
+  # macOS BSD iconv returns exit 1 when it emits a warning even though it
+  # still produced valid transliterated output, so we cannot rely on the
+  # exit code alone — `|| true` inside the substitution keeps callers under
+  # `set -e` safe, and we then check for empty output to decide fallback.
   if (( $+commands[iconv] )); then
-    s=$(print -r -- "$title" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null) || s="$title"
+    s=$(print -r -- "$title" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || true)
+    [[ -z "$s" ]] && s="$title"
   else
     s="$title"
   fi
@@ -81,8 +86,15 @@ bookshelf_slug() {
   s="${s:0:80}"
   if [[ -n "$author_last" ]]; then
     local al
-    al=$(print -r -- "$author_last" \
-      | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || print -r -- "$author_last")
+    # Same macOS-iconv caveat as the title block above: `|| true` masks BSD
+    # iconv's exit-1-on-warning so callers under `set -e` aren't tripped, and
+    # we fall back to the original input only when iconv produced no output.
+    if (( $+commands[iconv] )); then
+      al=$(print -r -- "$author_last" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || true)
+      [[ -z "$al" ]] && al="$author_last"
+    else
+      al="$author_last"
+    fi
     al=$(print -r -- "$al" | tr '[:upper:]' '[:lower:]' \
       | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
     [[ -n "$al" ]] && s="${s}-${al}"
