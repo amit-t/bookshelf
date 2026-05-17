@@ -66,10 +66,10 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 
 ### Phase 3 — Test harness
 - [x] **3.1** Write `tests/_assert.zsh` (assertions + `setup_temp_repo` / `teardown_temp_repo`) — plan Phase 3 Task 3.1.
-- [ ] **3.2** Write `tests/run.zsh`, make executable, smoke-test on empty test dir, commit (`test: harness — runner + assertions + temp-repo helpers`) — plan Phase 3 Task 3.2.
+- [x] **3.2** Write `tests/run.zsh`, make executable, smoke-test on empty test dir, commit (`test: harness — runner + assertions + temp-repo helpers`) — plan Phase 3 Task 3.2.
 
 ### Phase 4 — `lib/_shared.zsh` (TDD)
-- [ ] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
+- [x] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
 - [ ] **4.2** Slug test — plan Phase 4 Task 4.2.
 - [ ] **4.3** Repo-resolve test — plan Phase 4 Task 4.3.
 - [ ] **4.4** Length-guard test — plan Phase 4 Task 4.4.
@@ -187,6 +187,28 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 4.1 under parallel-worktree orchestration: the plan bundles every
+  Phase 4 sub-task into one commit at Task 4.5 (`feat(lib): _shared.zsh —
+  ulid, slug, repo path, length guard`) covering `lib/_shared.zsh` +
+  `tests/cli/test_{ulid,slug,repo_resolve,length_guard}.zsh`. For per-task
+  PR isolation, this worker lands `lib/_shared.zsh` (the full file
+  per-plan, since it contains all four functions) plus
+  `tests/cli/test_ulid.zsh` as `feat(lib): _shared.zsh + test_ulid.zsh —
+  ulid helper (Task 4.1)`. Subsequent 4.2/4.3/4.4 workers add only their
+  respective test file; the bundle commit message at 4.5 then serves as
+  the named bundle marker with no further file changes. Verification was
+  done locally by checking out the Phase 3 harness (`tests/_assert.zsh`
+  from `origin/ralph-devin/3-1-...`, `tests/run.zsh` from `origin/...3-2-...`)
+  into the working tree, running `zsh tests/run.zsh` (`1 passed`), then
+  removing those files before committing so this PR ships only the 4.1
+  artifacts; the harness arrives via its own merged PRs.
+- Task 3.2 under parallel-worktree orchestration: landed `tests/run.zsh`
+  alone as `test(harness): run.zsh — test runner (Task 3.2)`, mirroring
+  Task 3.1's split commit. Empty-dir smoke-test produced the plan-expected
+  `0 passed, 0 failed, 0 skipped` (exit 0); additional ad-hoc smoke with
+  pass/fail/skip fixtures confirmed PASS/FAIL/SKIP routing, indented
+  failure-output framing, and non-zero exit on any failure — fixtures
+  removed before committing.
 - Task 3.1 under parallel-worktree orchestration: the plan bundles
   `tests/_assert.zsh` into Task 3.2's commit (`test: harness — runner +
   assertions + temp-repo helpers`). For per-task PR isolation, this worker
