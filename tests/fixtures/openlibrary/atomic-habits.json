@@ -1,0 +1,15 @@
+{
+  "numFound": 1,
+  "docs": [
+    {
+      "key": "/works/OL17877423W",
+      "title": "Atomic Habits",
+      "author_name": ["James Clear"],
+      "first_publish_year": 2018,
+      "number_of_pages_median": 320,
+      "isbn": ["9780735211292"],
+      "cover_i": 9259256,
+      "language": ["eng"]
+    }
+  ]
+}
