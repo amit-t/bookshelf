@@ -59,7 +59,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [x] **1.6** Commit Phase 1 bundle (include the plan file itself in this commit) — plan Phase 1 Task 1.6.
 
 ### Phase 2 — Corpus scaffolding
-- [ ] **2.1** Write `books/_categories.yml` (11 closed categories) — plan Phase 2 Task 2.1.
+- [x] **2.1** Write `books/_categories.yml` (11 closed categories) — plan Phase 2 Task 2.1.
 - [ ] **2.2** Write `books/_shelves.yml` (open hint file, initially empty) — plan Phase 2 Task 2.2.
 - [x] **2.3** Write `books/_example.md` template fixture — plan Phase 2 Task 2.3.
 - [ ] **2.4** Commit Phase 2 (`feat: closed category taxonomy + open shelves hint file + template`) — plan Phase 2 Task 2.4.
