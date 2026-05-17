@@ -70,7 +70,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 
 ### Phase 4 — `lib/_shared.zsh` (TDD)
 - [x] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
-- [ ] **4.2** Slug test — plan Phase 4 Task 4.2.
+- [x] **4.2** Slug test — plan Phase 4 Task 4.2.
 - [ ] **4.3** Repo-resolve test — plan Phase 4 Task 4.3.
 - [ ] **4.4** Length-guard test — plan Phase 4 Task 4.4.
 - [ ] **4.5** Run all tests so far, commit (`feat(lib): _shared.zsh — ulid, slug, repo path, length guard`) — plan Phase 4 Task 4.5.
@@ -187,6 +187,29 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 4.2 under parallel-worktree orchestration: the plan prescribes only
+  the test file `tests/cli/test_slug.zsh`, sourcing the `bookshelf_slug`
+  helper landed by Task 4.1. Running the prescribed test against the 4.1
+  worker's `lib/_shared.zsh` on macOS (BSD iconv) revealed an exit-code bug:
+  BSD iconv returns 1 when emitting a "warning: invalid characters" line
+  even though it successfully transliterated (`Sōseki` → `Soseki`,
+  `Flow — …` → `Flow - …`). The plan-shipped pattern
+  `s=$(... iconv ...) || s="$title"` consumed that exit-1 only in the title
+  block (and in doing so concatenated the un-transliterated fallback in the
+  author block where `||` lived inside the pipeline); under `set -e` the
+  errexit path was also tripped via the assignment status. Per TDD ("failing
+  test → fix impl → pass"), this worker landed a minimal `_shared.zsh`
+  patch alongside `tests/cli/test_slug.zsh`: capture iconv with `|| true`
+  inside `$()` to be errexit-safe, and fall back to the original input only
+  on empty output rather than non-zero exit. Verification: with the Phase 3
+  harness (`tests/_assert.zsh`, `tests/run.zsh`) and Task 4.1's
+  `tests/cli/test_ulid.zsh` temporarily checked out into the working tree,
+  `zsh tests/run.zsh` reports `2 passed, 0 failed, 0 skipped`; those
+  borrowed files are then removed so this PR ships only the slug test +
+  the `_shared.zsh` macOS-iconv hardening. If this PR merges after 4.1,
+  the `_shared.zsh` diff lands as a small follow-up over the 4.1 baseline;
+  if merge order swaps, treat 4.2's `_shared.zsh` as the canonical version
+  during conflict resolution.
 - Task 4.1 under parallel-worktree orchestration: the plan bundles every
   Phase 4 sub-task into one commit at Task 4.5 (`feat(lib): _shared.zsh —
   ulid, slug, repo path, length guard`) covering `lib/_shared.zsh` +
