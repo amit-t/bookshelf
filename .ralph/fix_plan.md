@@ -187,6 +187,22 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 4.4 under parallel-worktree orchestration: the plan prescribes only
+  the test file `tests/cli/test_length_guard.zsh`, sourcing the
+  `bookshelf_check_title` helper landed by Task 4.1 (Task 4.2's canonical
+  `lib/_shared.zsh` includes it unchanged from the 4.1 baseline). This
+  worker ships ONLY `tests/cli/test_length_guard.zsh`; the `_shared.zsh`
+  body arrives via the 4.1/4.2 PR merges. Verification: borrowed
+  `lib/_shared.zsh` from `origin/ralph-devin/4-2-...` (canonical with the
+  macOS-iconv hardening), `tests/_assert.zsh` from
+  `origin/ralph-devin/3-1-...`, and `tests/run.zsh` from
+  `origin/ralph-devin/3-2-...` into the working tree, ran
+  `zsh tests/run.zsh` (`1 passed, 0 failed, 0 skipped`) and
+  `zsh tests/cli/test_length_guard.zsh` directly (exit 0), then removed the
+  borrowed files before committing so this PR ships only the 4.4 test
+  artifact. The three test assertions exercise: (a) below-min title `"A"`
+  (1 char < min 2) returns exit code 6, (b) within-bounds `"Atomic Habits"`
+  returns 0, (c) over-max 501-char title returns exit code 6.
 - Task 4.3 under parallel-worktree orchestration: the plan prescribes only
   the test file `tests/cli/test_repo_resolve.zsh`, sourcing
   `bookshelf_repo_path` landed by Task 4.1 (and patched by Task 4.2 for the
