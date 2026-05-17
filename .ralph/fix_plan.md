@@ -66,7 +66,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 
 ### Phase 3 — Test harness
 - [x] **3.1** Write `tests/_assert.zsh` (assertions + `setup_temp_repo` / `teardown_temp_repo`) — plan Phase 3 Task 3.1.
-- [ ] **3.2** Write `tests/run.zsh`, make executable, smoke-test on empty test dir, commit (`test: harness — runner + assertions + temp-repo helpers`) — plan Phase 3 Task 3.2.
+- [x] **3.2** Write `tests/run.zsh`, make executable, smoke-test on empty test dir, commit (`test: harness — runner + assertions + temp-repo helpers`) — plan Phase 3 Task 3.2.
 
 ### Phase 4 — `lib/_shared.zsh` (TDD)
 - [ ] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
@@ -187,6 +187,13 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 3.2 under parallel-worktree orchestration: landed `tests/run.zsh`
+  alone as `test(harness): run.zsh — test runner (Task 3.2)`, mirroring
+  Task 3.1's split commit. Empty-dir smoke-test produced the plan-expected
+  `0 passed, 0 failed, 0 skipped` (exit 0); additional ad-hoc smoke with
+  pass/fail/skip fixtures confirmed PASS/FAIL/SKIP routing, indented
+  failure-output framing, and non-zero exit on any failure — fixtures
+  removed before committing.
 - Task 3.1 under parallel-worktree orchestration: the plan bundles
   `tests/_assert.zsh` into Task 3.2's commit (`test: harness — runner +
   assertions + temp-repo helpers`). For per-task PR isolation, this worker
