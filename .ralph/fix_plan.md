@@ -71,7 +71,7 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 ### Phase 4 — `lib/_shared.zsh` (TDD)
 - [x] **4.1** ULID test + impl — plan Phase 4 Task 4.1.
 - [x] **4.2** Slug test — plan Phase 4 Task 4.2.
-- [ ] **4.3** Repo-resolve test — plan Phase 4 Task 4.3.
+- [x] **4.3** Repo-resolve test — plan Phase 4 Task 4.3.
 - [ ] **4.4** Length-guard test — plan Phase 4 Task 4.4.
 - [ ] **4.5** Run all tests so far, commit (`feat(lib): _shared.zsh — ulid, slug, repo path, length guard`) — plan Phase 4 Task 4.5.
 
@@ -187,6 +187,23 @@ non-book commits), push that, open the PR. Ralph auto-PR is enabled
 - [ ] **23.4** Print final summary (all three PR URLs, combined test counts, next-step pointers including: publish skill to `amit-t/skills` catalog, seed first real book, set `DO_API_TOKEN` + `DO_APP_ID` secrets on the bookshelf repo) — plan Phase 23 Task 23.4.
 
 ## Notes
+- Task 4.3 under parallel-worktree orchestration: the plan prescribes only
+  the test file `tests/cli/test_repo_resolve.zsh`, sourcing
+  `bookshelf_repo_path` landed by Task 4.1 (and patched by Task 4.2 for the
+  macOS-iconv exit-code issue, which is the canonical version per 4.2's
+  note). This worker ships ONLY `tests/cli/test_repo_resolve.zsh`; the
+  `_shared.zsh` body arrives via the 4.1/4.2 PR merges. Verification:
+  borrowed `lib/_shared.zsh` from `origin/ralph-devin/4-2-...` (canonical),
+  `tests/_assert.zsh` from `origin/ralph-devin/3-1-...`, and `tests/run.zsh`
+  from `origin/ralph-devin/3-2-...` into the working tree, ran
+  `zsh tests/run.zsh` (`1 passed, 0 failed, 0 skipped`) and
+  `zsh tests/cli/test_repo_resolve.zsh` directly (exit 0), then removed the
+  borrowed files before committing so this PR ships only the 4.3 test
+  artifact. The three test assertions exercise: (a) default path fallback to
+  `${HOME}/Projects/AmitTiwari/bookshelf` containing `bookshelf`,
+  (b) `BOOKSHELF_REPO` env override returning the override value verbatim,
+  (c) `BOOKSHELF_REPO_STRICT=1` returning exit code 2 when `$repo/.git` is
+  missing.
 - Task 4.2 under parallel-worktree orchestration: the plan prescribes only
   the test file `tests/cli/test_slug.zsh`, sourcing the `bookshelf_slug`
   helper landed by Task 4.1. Running the prescribed test against the 4.1
